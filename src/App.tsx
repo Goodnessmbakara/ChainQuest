@@ -7,9 +7,7 @@ import { LandingPage } from './pages/LandingPage';
 import { QuestsPage } from './pages/QuestsPage';
 import { QuestDetailPage } from './pages/QuestDetailPage';
 import { DashboardPage } from './pages/DashboardPage';
-
-// Placeholder components for routes not yet implemented
-const LeaderboardPage = () => <div className="pt-24 text-center text-white">Leaderboard Coming Soon</div>;
+import { LeaderboardPage } from './pages/LeaderboardPage';
 
 function App() {
   return (
