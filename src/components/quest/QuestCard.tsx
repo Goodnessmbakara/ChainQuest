@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Star, Trophy, ArrowRight, CheckCircle2 } from 'lucide-react';
-import { useWallet } from '../../hooks/useWallet';
+import { Trophy, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 interface QuestCardProps {
   id: number;

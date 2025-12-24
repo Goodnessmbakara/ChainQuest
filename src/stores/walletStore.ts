@@ -1,27 +1,27 @@
 import { create } from 'zustand';
-import { userSession } from '../lib/stacks/client';
+import type { SessionTypes } from '@walletconnect/types';
 
 interface WalletState {
   isConnected: boolean;
   address: string | null;
   balance: number;
-  connect: (address: string) => void;
+  session: SessionTypes.Struct | null;
+  connect: (address: string, session: SessionTypes.Struct) => void;
   disconnect: () => void;
   setBalance: (balance: number) => void;
 }
 
 export const useWalletStore = create<WalletState>((set) => ({
-  isConnected: userSession.isUserSignedIn(),
-  address: userSession.isUserSignedIn() 
-    ? userSession.loadUserData().profile.stxAddress.testnet 
-    : null,
+  isConnected: false,
+  address: null,
   balance: 0,
+  session: null,
   
-  connect: (address: string) => set({ isConnected: true, address }),
+  connect: (address: string, session: SessionTypes.Struct) => 
+    set({ isConnected: true, address, session }),
   
   disconnect: () => {
-    userSession.signUserOut();
-    set({ isConnected: false, address: null, balance: 0 });
+    set({ isConnected: false, address: null, balance: 0, session: null });
   },
   
   setBalance: (balance: number) => set({ balance }),

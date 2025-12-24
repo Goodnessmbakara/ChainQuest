@@ -16,19 +16,23 @@
     "contracts:deploy": "clarinet deploy"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
     "@reown/appkit": "^1.6.0",
     "@stacks/connect": "^7.0.0",
     "@stacks/network": "^6.13.0",
     "@stacks/transactions": "^6.15.0",
+    "@tanstack/react-query": "^5.62.0",
+    "@walletconnect/modal": "^2.7.0",
+    "@walletconnect/sign-client": "^2.23.1",
+    "@walletconnect/types": "^2.23.1",
+    "@walletconnect/utils": "^2.23.1",
+    "clsx": "^2.1.1",
     "framer-motion": "^11.15.0",
     "lucide-react": "^0.469.0",
-    "zustand": "^5.0.0",
-    "@tanstack/react-query": "^5.62.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.0",
-    "clsx": "^2.1.1",
-    "tailwind-merge": "^2.6.0"
+    "tailwind-merge": "^2.6.0",
+    "zustand": "^5.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

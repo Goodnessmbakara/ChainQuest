@@ -1,13 +1,16 @@
 import { useWalletStore } from '../stores/walletStore';
-import { authenticate } from '../components/wallet/WalletProvider';
-import { truncateAddress } from '../lib/stacks/client';
 
 export const useWallet = () => {
-  const store = useWalletStore();
-  
+  const { isConnected, address, balance, session, disconnect } = useWalletStore();
+
+  const truncatedAddress = address ? `${address.slice(0, 6)}...${address.slice(-4)}` : '';
+
   return {
-    ...store,
-    authenticate,
-    truncatedAddress: truncateAddress(store.address || ''),
+    isConnected,
+    address,
+    balance,
+    session,
+    truncatedAddress,
+    disconnect,
   };
 };
