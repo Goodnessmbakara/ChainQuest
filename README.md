@@ -1,73 +1,102 @@
-# React + TypeScript + Vite
+# ⚔️ ChainQuest
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**The Gamified Learn-to-Earn Platform for Stacks & Bitcoin L2**
 
-Currently, two official plugins are available:
+ChainQuest is an interactive educational platform where developers learn to build on Stacks by completing coding quests. Earn **STX rewards** and verifiable **NFT Achievement Badges** while mastering Clarity smart contracts and Bitcoin Layer 2 development.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Built for the **Stacks + WalletConnect Builder Challenge** (Week #3).
 
-## React Compiler
+![ChainQuest Banner](https://placehold.co/1200x400/7c3aed/ffffff?text=ChainQuest+banner+placeholder)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Features
 
-## Expanding the ESLint configuration
+-   **Interactive Quests**: Step-by-step coding challenges teaching Stacks & Clarity.
+-   **Proof-of-Learn Protocol**: Verifiable on-chain quest completion.
+-   **Earn Real Rewards**: Receive STX micro-rewards for completing milestones.
+-   **NFT Badges**: Mint SIP-009 compliant "Achievement Badges" that serve as your Web3 resume.
+-   **Leaderboard**: Compete with other builders for the top spot.
+-   **Seamless Onboarding**: Integrated with **Reown AppKit** for smooth WalletConnect support.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+-   **Frontend**: React (Vite), TypeScript, Tailwind CSS, Framer Motion
+-   **Smart Contracts**: Clarity (Clarity 3.0)
+-   **Blockchain**: Stacks Testnet
+-   **Wallet Integration**: Reown AppKit + WalletConnect
+-   **Testing**: Clarinet, Vitest
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📦 Smart Contracts
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+ChainQuest utilizes a multi-contract architecture to manage state, assets, and rewards:
+
+| Contract | Purpose |
+| :--- | :--- |
+| `quest-manager.clar` | Core logic for defining quests and tracking user progress. |
+| `achievement-badges.clar` | SIP-009 NFT contract for minting unique achievement badges. |
+| `reward-distributor.clar` | Manages the STX reward pool and distributes funds to learners. |
+| `leaderboard.clar` | Tracks user scores and rankings based on completed quests. |
+
+## 🏁 Getting Started
+
+### Prerequisites
+
+-   Node.js (v18+)
+-   [Clarinet](https://github.com/hirosystems/clarinet) (for smart contract development)
+-   A Stacks Wallet (Leather, Xverse, or Asigna)
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Goodnessmbakara/ChainQuest.git
+cd ChainQuest
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install Dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
+
+### 3. Environment Setup
+
+Create a `.env` file in the root directory:
+
+```bash
+VITE_REOWN_PROJECT_ID=your_reown_project_id
+VITE_STACKS_NETWORK=testnet
+VITE_CONTRACT_ADDRESS=your_deployer_address
+```
+
+### 4. Run Locally
+
+start the development server:
+
+```bash
+npm run dev
+```
+
+### 5. Smart Contract Development
+
+check contracts:
+
+```bash
+clarinet check
+```
+
+run tests:
+
+```bash
+clarinet test
+```
+
+## 🧪 Testing
+
+We use Vitest with Clarinet SDK for robust smart contract testing.
+
+```bash
+npm test
+```
+
+## 📜 License
+
+MIT License. Open source and built for the Stacks Community.
