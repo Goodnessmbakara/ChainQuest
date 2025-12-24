@@ -6,7 +6,7 @@ ChainQuest is an interactive educational platform where developers learn to buil
 
 Built for the **Stacks + WalletConnect Builder Challenge** (Week #3).
 
-![ChainQuest Banner](https://placehold.co/1200x400/7c3aed/ffffff?text=ChainQuest+banner+placeholder)
+![ChainQuest Banner](public/chainquest-banner.png)
 
 ## 🚀 Features
 
