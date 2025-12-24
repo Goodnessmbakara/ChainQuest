@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, CheckCircle2, ChevronRight, Play, Terminal } from 'lucide-react';
 import { useState } from 'react';
+// @ts-ignore
 import confetti from 'canvas-confetti';
 
 // Mock Data (matches QuestsPage)
@@ -108,9 +109,8 @@ const QUESTS_DATA: Record<string, any> = {
       <p>Protect a function so only the contract owner can call it.</p>
     `,
     initialCode: ';; Define owner\n(define-constant contract-owner tx-sender)\n\n(define-public (admin-only)\n  (begin\n    (asserts! (is-eq tx-sender contract-owner) (err u100))\n    (ok "Admin access granted")\n  )\n)',
-    reward: 20,
-    difficulty: 'Beginner',
   },
+};
 
 export const QuestDetailPage = () => {
   const { id } = useParams();

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
-import { useWallet } from '../../hooks/useWallet';
-import { QuestCard } from '../../components/quest/QuestCard';
-import { Badge } from '../../components/ui/Badge';
+import { useWallet } from '../hooks/useWallet';
+import { QuestCard } from '../components/quest/QuestCard';
+import { Badge } from '../components/ui/Badge';
 import { Trophy, Flame, Target, Share2 } from 'lucide-react';
 
 // Mock Data

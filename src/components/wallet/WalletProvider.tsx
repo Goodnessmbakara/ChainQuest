@@ -1,4 +1,5 @@
-import { ReactNode, useEffect } from 'react';
+import { useEffect } from 'react';
+import type { ReactNode } from 'react';
 import { showConnect } from '@stacks/connect';
 import { appConfig, userSession } from '../../lib/stacks/client';
 import { useWalletStore } from '../../stores/walletStore';
@@ -8,7 +9,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (userSession.isSignInPending()) {
-      userSession.handlePendingSignIn().then((userData) => {
+      userSession.handlePendingSignIn().then((userData: any) => {
         connect(userData.profile.stxAddress.testnet);
       });
     }

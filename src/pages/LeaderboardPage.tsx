@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Trophy, Medal, User } from 'lucide-react';
+import { Trophy, User } from 'lucide-react';
 
 const LEADERBOARD_DATA = [
   { rank: 1, address: 'SP3...822', xp: 12500, quests: 42, badges: 15 },

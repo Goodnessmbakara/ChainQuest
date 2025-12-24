@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { QuestCard } from '../../components/quest/QuestCard';
-import { Search, Filter } from 'lucide-react';
+import { QuestCard } from '../components/quest/QuestCard';
+import { Search } from 'lucide-react';
 
 // Mock Data (Replace with contract data later)
 const MOCK_QUESTS = [
