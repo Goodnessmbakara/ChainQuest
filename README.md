@@ -4,9 +4,6 @@
 
 ChainQuest is an interactive educational platform where developers learn to build on Stacks by completing coding quests. Earn **STX rewards** and verifiable **NFT Achievement Badges** while mastering Clarity smart contracts and Bitcoin Layer 2 development.
 
-Built for the **Stacks + WalletConnect Builder Challenge** (Week #3).
-
-![ChainQuest Banner](public/chainquest-banner.png)
 
 ## 🚀 Features
 
