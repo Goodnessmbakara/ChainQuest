@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, CheckCircle2, ChevronRight, Play, Terminal } from 'lucide-react';
 import { useState } from 'react';
+import confetti from 'canvas-confetti';
 
 // Mock Data (matches QuestsPage)
 const QUESTS_DATA: Record<string, any> = {
@@ -26,21 +27,94 @@ const QUESTS_DATA: Record<string, any> = {
     reward: 10,
     difficulty: 'Beginner',
   },
-  // Fallback for other IDs for demo purposes
-  'default': {
-    id: 0,
-    title: 'Quest Not Found',
-    description: 'This quest does not exist.',
-    content: '',
-    initialCode: '',
-    reward: 0,
-    difficulty: 'Unknown',
-  }
-};
+  '2': {
+    id: 2,
+    title: 'Data Storage 101',
+    description: 'Learn how to store and retrieve data on the Stacks blockchain using maps and variables.',
+    content: `
+      <h2>Storing Data on Stacks</h2>
+      <p>Smart contracts often need to store state. Clarity provides <code>define-data-var</code> for single values and <code>define-map</code> for key-value stores.</p>
+      <h3>Objective</h3>
+      <p>Define a data variable named <code>message</code> and a function to update it.</p>
+    `,
+    initialCode: ';; Define a data variable\n(define-data-var message (string-utf8 50) u"Hello")\n\n(define-public (set-message (new-msg (string-utf8 50)))\n  (ok (var-set message new-msg))\n)',
+    reward: 15,
+    difficulty: 'Beginner',
+  },
+  '3': {
+    id: 3,
+    title: 'Sip-009 NFT',
+    description: 'Build your own NFT contract implementing the SIP-009 standard.',
+    content: `
+      <h2>Non-Fungible Tokens (NFTs)</h2>
+      <p>SIP-009 is the standard for NFTs on Stacks. It defines traits that your contract must implement to be compatible with wallets and marketplaces.</p>
+      <h3>Objective</h3>
+      <p>Define a new NFT and a mint function.</p>
+    `,
+    initialCode: '(define-non-fungible-token my-nft uint)\n\n(define-public (mint (recipient principal))\n  (nft-mint? my-nft u1 recipient)\n)',
+    reward: 50,
+    difficulty: 'Intermediate',
+  },
+  '4': {
+    id: 4,
+    title: 'DeFi Swap',
+    description: 'Create a simple token swap contract using SIP-010 fungible tokens.',
+    content: `
+      <h2>Decentralized Finance (DeFi)</h2>
+      <p>Swapping tokens is a fundamental building block of DeFi. In Clarity, you can transfer assets safely with post-conditions.</p>
+      <h3>Objective</h3>
+      <p>Write a function that transfers STX from the sender to the contract.</p>
+    `,
+    initialCode: '(define-public (deposit (amount uint))\n  (stx-transfer? amount tx-sender (as-contract tx-sender))\n)',
+    reward: 100,
+    difficulty: 'Advanced',
+  },
+  '5': {
+    id: 5,
+    title: 'Wallet Connect',
+    description: 'Integrate a frontend with your smart contract using Stacks.js and WalletConnect.',
+    content: `
+      <h2>Frontend Integration</h2>
+      <p>Connecting your dApp to user wallets is crucial. Learn how to use Stacks.js to authenticate users and sign transactions.</p>
+      <h3>Objective</h3>
+      <p>Simulate a frontend connection verification.</p>
+    `,
+    initialCode: ';; This quest focuses on frontend code\n;; Click Run to simulate the connection flow.',
+    reward: 25,
+    difficulty: 'Intermediate',
+  },
+  '6': {
+    id: 6,
+    title: 'Bitcoin Oracle',
+    description: 'Read Bitcoin state directly from your Clarity smart contract using Proof-of-Transfer.',
+    content: `
+      <h2>Bitcoin on Stacks</h2>
+      <p>Stacks has visibility into the Bitcoin chain. You can read block headers and verify transactions using <code>contract-call?</code> to the PoX contract.</p>
+      <h3>Objective</h3>
+      <p>Fetch the current burn block height (Bitcoin block height).</p>
+    `,
+    initialCode: '(define-read-only (get-btc-height)\n  (ok burn-block-height)\n)',
+    reward: 150,
+    difficulty: 'Advanced',
+  },
+  '7': {
+    id: 7,
+    title: 'Access Control',
+    description: 'Implement secure access controls and ownership management in your contracts.',
+    content: `
+      <h2>Security & Access Control</h2>
+      <p>Not everyone should be able to call sensitive functions. Use <code>asserts!</code> to check if the <code>tx-sender</code> is authorized.</p>
+      <h3>Objective</h3>
+      <p>Protect a function so only the contract owner can call it.</p>
+    `,
+    initialCode: ';; Define owner\n(define-constant contract-owner tx-sender)\n\n(define-public (admin-only)\n  (begin\n    (asserts! (is-eq tx-sender contract-owner) (err u100))\n    (ok "Admin access granted")\n  )\n)',
+    reward: 20,
+    difficulty: 'Beginner',
+  },
 
 export const QuestDetailPage = () => {
   const { id } = useParams();
-  const quest = QUESTS_DATA[id || ''] || (id ? QUESTS_DATA['1'] : QUESTS_DATA['default']); // Fallback to 1 for demo if ID valid but not in map, or default
+  const quest = QUESTS_DATA[id || ''] || (id ? QUESTS_DATA['1'] : QUESTS_DATA['default']); 
   
   const [code, setCode] = useState(quest.initialCode);
   const [isRunning, setIsRunning] = useState(false);
@@ -54,8 +128,16 @@ export const QuestDetailPage = () => {
     // Simulate execution
     setTimeout(() => {
       setIsRunning(false);
-      setOutput('>> Analysis passed\n>> Contract deployed to testnet\n>> Function returns (ok "Hello, World!")');
+      setOutput('>> Analysis passed\\n>> Contract deployed to testnet\\n>> Function returns (ok "Hello, World!")');
       setIsCompleted(true);
+      
+      // Trigger confetti
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#8b5cf6', '#6366f1', '#10b981'],
+      });
     }, 1500);
   };
 
