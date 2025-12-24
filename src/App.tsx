@@ -4,8 +4,10 @@ import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { LandingPage } from './pages/LandingPage';
 
+import { QuestsPage } from './pages/QuestsPage';
+import { QuestDetailPage } from './pages/QuestDetailPage';
+
 // Placeholder components for routes not yet implemented
-const QuestsPage = () => <div className="pt-24 text-center text-white">Quests Coming Soon</div>;
 const LeaderboardPage = () => <div className="pt-24 text-center text-white">Leaderboard Coming Soon</div>;
 const DashboardPage = () => <div className="pt-24 text-center text-white">Dashboard Coming Soon</div>;
 
@@ -19,6 +21,7 @@ function App() {
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/quests" element={<QuestsPage />} />
+              <Route path="/quests/:id" element={<QuestDetailPage />} />
               <Route path="/leaderboard" element={<LeaderboardPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
             </Routes>
