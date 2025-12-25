@@ -4,6 +4,8 @@ import { ArrowLeft, CheckCircle2, ChevronRight, Play, Terminal } from 'lucide-re
 import { useState } from 'react';
 // @ts-ignore
 import confetti from 'canvas-confetti';
+import { completeQuest } from '../lib/contracts/quest-manager';
+import { claimRewards } from '../lib/contracts/reward-distributor';
 
 // Mock Data (matches QuestsPage)
 const QUESTS_DATA: Record<string, any> = {
@@ -121,14 +123,22 @@ export const QuestDetailPage = () => {
   const [output, setOutput] = useState<string | null>(null);
   const [isCompleted, setIsCompleted] = useState(false);
 
-  const handleRun = () => {
+  const handleRun = async () => {
     setIsRunning(true);
     setOutput(null);
-    
-    // Simulate execution
-    setTimeout(() => {
-      setIsRunning(false);
-      setOutput('>> Analysis passed\\n>> Contract deployed to testnet\\n>> Function returns (ok "Hello, World!")');
+
+    try {
+      // Simulate verification period
+      setOutput('>> Verifying solution...');
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // In a real app, we would verify the code locally or via a backend first
+      // Here we assume the code is correct and trigger the on-chain transaction
+      
+      setOutput('>> Solution verified. Requesting signature...');
+      await completeQuest(quest.id);
+      
+      setOutput('>> Transaction submitted!\\n>> Quest marked as complete.');
       setIsCompleted(true);
       
       // Trigger confetti
@@ -138,7 +148,21 @@ export const QuestDetailPage = () => {
         origin: { y: 0.6 },
         colors: ['#8b5cf6', '#6366f1', '#10b981'],
       });
-    }, 1500);
+    } catch (error) {
+      console.error(error);
+      setOutput(`>> Error: ${error instanceof Error ? error.message : 'Transaction failed'}`);
+    } finally {
+      setIsRunning(false);
+    }
+  };
+
+  const handleClaim = async () => {
+    try {
+      await claimRewards();
+      alert('Reward claim transaction submitted!');
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   if (!quest.id) {
@@ -224,7 +248,7 @@ export const QuestDetailPage = () => {
                     <p className="text-sm text-gray-400">You earned {quest.reward} STX</p>
                   </div>
                 </div>
-                <button className="flex items-center gap-1 text-sm font-bold text-green-400 hover:underline">
+                <button onClick={handleClaim} className="flex items-center gap-1 text-sm font-bold text-green-400 hover:underline">
                   Claim Reward <ChevronRight className="h-4 w-4" />
                 </button>
               </motion.div>

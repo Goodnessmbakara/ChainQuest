@@ -3,6 +3,7 @@ import { useWallet } from '../hooks/useWallet';
 import { QuestCard } from '../components/quest/QuestCard';
 import { Badge } from '../components/ui/Badge';
 import { Trophy, Flame, Target, Share2 } from 'lucide-react';
+import { claimRewards } from '../lib/contracts/reward-distributor';
 
 // Mock Data
 const ACTIVE_QUESTS = [
@@ -48,8 +49,19 @@ const EARNED_BADGES = [
   }
 ];
 
+
+
 export const DashboardPage = () => {
   const { isConnected, balance } = useWallet();
+
+  const handleClaim = async () => {
+    try {
+      await claimRewards();
+      alert('Reward claim initiated!');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   if (!isConnected) {
     return (
@@ -80,7 +92,7 @@ export const DashboardPage = () => {
         {/* Stats Grid */}
         <div className="mb-12 grid gap-6 md:grid-cols-4">
           {[
-            { label: 'Total Earnings', value: `${balance} STX`, icon: <Trophy className="h-5 w-5 text-yellow-400" /> },
+            { label: 'Total Earnings', value: `${balance} STX`, icon: <Trophy className="h-5 w-5 text-yellow-400" />, action: balance > 0 && <button onClick={handleClaim} className="text-xs text-yellow-400 underline hover:text-yellow-300">Claim</button> },
             { label: 'Quests Completed', value: '1', icon: <Target className="h-5 w-5 text-green-400" /> },
             { label: 'Current Streak', value: '3 Days', icon: <Flame className="h-5 w-5 text-orange-400" /> },
             { label: 'Global Rank', value: '#42', icon: <Trophy className="h-5 w-5 text-violet-400" /> },
@@ -96,7 +108,11 @@ export const DashboardPage = () => {
                 <span className="text-sm text-gray-400">{stat.label}</span>
                 {stat.icon}
               </div>
-              <div className="text-2xl font-bold text-white">{stat.value}</div>
+              <div className="text-2xl font-bold text-white flex items-end gap-2">
+                {stat.value}
+                {/* @ts-ignore */}
+                {stat.action}
+              </div>
             </motion.div>
           ))}
         </div>
